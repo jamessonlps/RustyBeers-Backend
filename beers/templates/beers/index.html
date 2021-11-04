@@ -1,0 +1,22 @@
+{% extends "beers/base.html" %}
+{% load static %}
+
+{% block content %}
+<img src="{% static 'beers/img/logo-getit.png' %}" />
+<p>Como o site da Ambev, mas melhor</p>
+
+<form method="post">
+  {% csrf_token %}
+  <label for="titulo">Título</label>
+  <input id="titulo" type="text" name="titulo" />
+  <label for="detalhes">Detalhes</label>
+  <textarea id="detalhes" name="detalhes"></textarea>
+  <input type="submit" />
+</form>
+
+<ul>
+    {% for beer in beers %}
+    <li>{{ beer.title }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
