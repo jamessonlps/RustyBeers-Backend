@@ -1,8 +1,13 @@
 from rest_framework import serializers
-from .models import Beer
+from .models import User, BeersFavoritesCounter
 
 
-class BeerSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Beer
-        fields = ['id', 'title', 'content']
+        model = User
+        fields = ['name', 'lastname', 'email', 'password', 'favorites']
+
+class BeersFavoritesCounter(serializers.ModelSerializer):
+    class Meta:
+        model = BeersFavoritesCounter
+        fields = ['beer_id', 'counter']

@@ -1,12 +1,20 @@
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 
-# Create your models here.
-from django.db import models
+class User(models.Model):
+    name      = models.CharField(max_length=32)
+    lastname  = models.CharField(max_length=32)
+    email     = models.EmailField(unique=True, max_length=32)
+    password  = models.CharField(max_length=32)
+    favorites = ArrayField(models.IntegerField(), blank=True)
 
-
-class Beer(models.Model):
-    title = models.CharField(max_length=200)
-    content = models.TextField(max_length=2000)
-    
     def __str__(self) -> str:
-        return f'{self.id.__str__()}. {self.title}'
+        return f"{self.email}. {self.name} {self.lastname}"
+
+
+class BeersFavoritesCounter(models.Model):
+    beer_id = models.IntegerField(primary_key=True, unique=True)
+    counter = models.IntegerField(default=0)
+
+    def __str__(self) -> str:
+        return f'{self.beer_id}. {self.counter} votes'
