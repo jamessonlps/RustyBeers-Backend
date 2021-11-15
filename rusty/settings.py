@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-n@gp*@9i3vz%1!8@t_c5+ckqy8iq8kzexfc)q=+^22#bng)eoi'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['rustybeers.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -80,14 +80,19 @@ WSGI_APPLICATION = 'rusty.wsgi.application'
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'getit',
-        'USER': 'getituser',
-        'PASSWORD': 'getitsenha',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'getit',
+    #     'USER': 'getituser',
+    #     'PASSWORD': 'getitsenha',
+    #     'HOST': 'localhost',
+    #     'PORT': '5432',
+    # }
+    'default': dj_database_url.config(
+        default='postgresql://localhost/rusty?user=getituser&password=getitsenha',
+        conn_max_age=600,
+        ssl_require=not DEBUG
+    )
 
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
@@ -113,19 +118,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# CORS_ALLOW_CREDENTIALS = True
-
-# CORS_ALLOWED_ORIGINS = [
-#     'http://localhost:8000',
-#     'http://localhost:3000',
-#     'http://127.0.0.1:8000',
-#     'http://127.0.0.1:3000',
-# ]
-
-# CORS_ORIGIN_WHITELIST = (
-# 'http://localhost:3000/',
-# 'http://127.0.0.1:3000/'
-# )
 
 CORS_ORIGIN_ALLOW_ALL = True 
 
